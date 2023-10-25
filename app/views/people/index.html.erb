@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>People</h1>
+<br>
+<%=form_with(url: people_path, method: :get) do |form|%>
+  <%= form.label :query, "Informe o nome:"%>
+  <%= form.search_field :query%> 
+  <%= form.submit "Buscar", name: nil%>
+<%end%>
+
+<div id="people">
+  <% @people.each do |person| %>
+    <%= render person %>
+    <p>
+      <%= link_to "Show this person", person %>
+    </p>
+  <% end %>
+</div>
+<%= paginate @people%>
+<%= link_to "New person", new_person_path %>

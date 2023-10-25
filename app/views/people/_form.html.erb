@@ -1,0 +1,52 @@
+<%= form_with(model: person, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
+  <% if person.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+  
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%if person.errors[:nome].any?%>
+      <ul>
+        <%person.errors[:nome].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <%end%>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :idade, style: "display: block" %>
+    <%if person.errors[:idade].any?%>
+      <ul>
+        <%person.errors[:idade].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <%end%>
+    <%= form.number_field :idade %>
+  </div>
+
+  <template data-nested-form-target="template">
+    <%= form.fields_for :contacts, Contact.new, child_index: 'NEW_RECORD' do |contact_fields| %>
+      <%= render "contact_form", f: contact_fields %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :contacts do |contact_fields| %>
+    <%= render "contact_form", f: contact_fields %>
+  <% end %>
+
+  <!-- Inserted elements will be injected before that target. -->
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" data-action="nested-form#add">Add Contato</button>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
