@@ -76,3 +76,5 @@ gem "faker", "~> 3.2"
 gem "kaminari", "~> 1.2"
 
 gem "cssbundling-rails", "~> 1.3"
+
+gem "devise", "~> 4.9"

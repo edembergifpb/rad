@@ -11,6 +11,20 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%if user_signed_in?%>
+      <ul>
+        <li><%=current_user.email%></li>
+        <li><%= link_to "Editar", edit_user_registration_path%></li> 
+        <li><%= button_to "Sair",destroy_user_session_path, method: :delete%></li>
+      </ul>
+    <%else%>
+      <ul>
+        <li><%= link_to "Logar", new_user_session_path%></li> 
+        <li><%= link_to "Registrar",new_user_registration_path%></li>
+      </ul>
+    <%end%>
     <%= yield %>
   </body>
 </html>
